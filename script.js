@@ -13,7 +13,6 @@ getRandomUser();
 
 
 //Array of objects, with name, first and last and then a money value.
-
 //Intent: Fetch random user and add money
 async function getRandomUser() {
     const res = await fetch('https://randomuser.me/api');
@@ -32,6 +31,14 @@ async function getRandomUser() {
     //results.name.first.value?
 }
 
+//Double everyones money
+function doubleMoney() {
+    data = data.map((user) => {
+        return { ...user, money: user.money * 2 }
+    });
+
+    updateDOM();
+}
 
 //Fetch is asyncronous, so we have to wait for it to finish, and it returns a promise when it's finished, and we have to put await in front of it.
 //Intent: Add new obj to data arr
@@ -61,10 +68,15 @@ function updateDOM(providedData = data) {
 //Notes
 //looping through the providedData, and adding an element for this data.  Then calling the element classList, and adding a new class of person.
 
-//Format number as money - https://stackoverflow.com/questions/149055/how-to-format-numbers-as-currency-string - "short and fast soluction (works everywhere!)"...
+//Intent: Format number as money - https://stackoverflow.com/questions/149055/how-to-format-numbers-as-currency-string - "short and fast soluction (works everywhere!)"...
 function formatMoney(number) {
     return '$' + number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 }
 
+
+
 //Event listeners
 addUserBtn.addEventListener('click', getRandomUser);
+//Notes - adds additional users by calling the getRandomUser function, onClick.
+
+doubleBtn.addEventListener('click', doubleMoney);
